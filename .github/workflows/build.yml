@@ -23,7 +23,7 @@ jobs:
 
       - name: "Clone repo, sync, and build"
         run: |
-             mkdir $HOME/kernel && cd $HOME/kernel
+             mkdir kernel && cd kernel
              repo init -u https://android.googlesource.com/kernel/manifest -b common-android12-5.10
              repo sync
              LTO=thin BUILD_CONFIG=common/build.config.gki.x86_64 build/build.sh
