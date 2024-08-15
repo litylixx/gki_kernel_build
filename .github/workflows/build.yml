@@ -40,5 +40,5 @@ jobs:
              repo init -u https://android.googlesource.com/kernel/manifest -b common-android12-5.10
              repo sync
              rm -r common
-             git clone https://github.com/MiCode/Xiaomi_Kernel_OpenSource.git --depth=1 -b liuqin-t-oss common
-             LTO=thin BUILD_CONFIG=common/build.config.gki.aarch64 build/build.sh
+             git clone https://github.com/Yaroslav51-dev/MiCode_Kernel_Vayu.git --depth=1 -b vayu-r-oss common
+             LTO=thin BUILD_CONFIG=common/build.config.aarch64 build/build.sh
