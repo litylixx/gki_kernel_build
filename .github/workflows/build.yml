@@ -29,5 +29,6 @@ jobs:
              mkdir kernel && cd kernel
              repo init -u https://android.googlesource.com/kernel/manifest -b common-android12-5.10
              repo sync
-             git clone https://github.com/MiCode/Xiaomi_Kernel_OpenSource.git --depth=1 -b liuqin-t-oss liuqin
+             rm -r common
+             git clone https://github.com/MiCode/Xiaomi_Kernel_OpenSource.git --depth=1 -b liuqin-t-oss common
              LTO=thin BUILD_CONFIG=liuqin/build.config.msm.liuqin build/build.sh
