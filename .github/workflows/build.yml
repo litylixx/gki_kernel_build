@@ -23,7 +23,17 @@ jobs:
       - name: "Setup build environment"
         run: |             
              curl https://raw.githubusercontent.com/akhilnarang/scripts/master/setup/android_build_env.sh | bash -
-             
+             mkdir -p -v $HOME/gcc64
+             aria2c -o gcc-aarch64.tar.gz https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/+archive/refs/tags/android-14.0.0_r0.108.tar.gz
+             tar -C $HOME/gcc64 -zxf gcc-aarch64.tar.gz
+             mkdir -p -v $HOME/gcc32
+             aria2c -o gcc-arm.tar.gz https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/+archive/refs/tags/android-14.0.0_r0.108.tar.gz
+             tar -C $HOME/gcc32 -zxf gcc-arm.tar.gz
+             git clone https://gitlab.com/crdroidandroid/android_prebuilts_clang_host_linux-x86_clang-r530567.git --depth=1 -b 14.0 $HOME/clang
+             export PATH="$HOME/gcc64/bin:$PATH"
+             export PATH="$HOME/gcc32/bin:$PATH"
+             export PATH="$HOME/clang/bin:$PATH"
+                 
       - name: "Clone repo, sync, and build"
         run: |
              mkdir kernel && cd kernel
