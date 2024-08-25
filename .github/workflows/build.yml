@@ -30,5 +30,7 @@ jobs:
              repo init -u https://android.googlesource.com/kernel/manifest -b common-android12-5.10
              repo sync
              rm -r common
-             git clone https://github.com/Rofikkernel/qgki_kona_5.4.git -b 5.4 common
+             git clone --depth=1 https://github.com/romiyusnandar/kernel_xiaomi_bengal_515.git -b main common
+             git fetch https://android.googlesource.com/kernel/common android13-5.15-lts
+             git merge FETCH_HEAD
              LTO=thin BUILD_CONFIG=common/build.config.gki.aarch64 build/build.sh
