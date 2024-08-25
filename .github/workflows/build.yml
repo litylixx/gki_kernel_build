@@ -33,6 +33,8 @@ jobs:
              git clone --depth=1 https://github.com/romiyusnandar/kernel_xiaomi_bengal_515.git -b main common
              cd common
              git fetch https://android.googlesource.com/kernel/common android13-5.15-lts
-             git merge FETCH_HEAD
+             git config --global user.name "John Doe"
+             git config --global user.email "johndoe@example.com"
+             git merge FETCH_HEAD --allow-unrelated-histories
              cd ..
              LTO=thin BUILD_CONFIG=common/build.config.gki.aarch64 build/build.sh
