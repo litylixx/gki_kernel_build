@@ -27,8 +27,7 @@ jobs:
       - name: "Clone repo, sync, and build"
         run: |
              mkdir kernel && cd kernel
-             repo init -u https://android.googlesource.com/kernel/manifest -b common-android12-5.10
-             repo sync
-             rm -r common
+             repo init -u https://github.com/Yaroslav51-dev/kernel_manifest.git -b liuqin
+             repo sync -j$(nproc --all)
              git clone --depth=1 https://github.com/Yaroslav51-dev/liquin.git -b master common
              LTO=thin BUILD_CONFIG=common/build.config.gki.aarch64 build/build.sh
