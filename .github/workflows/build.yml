@@ -27,9 +27,8 @@ jobs:
       - name: "Clone repo, sync"
         run: |
              mkdir $HOMR/kernel && cd $HOME/kernel
-             repo init -u https://android.googlesource.com/kernel/manifest -b common-android12-5.10
+             repo init -u https://github.com/Yaroslav51-dev/kernel_manifest-5.10.git -b 14
              repo sync -j$(nproc --all)
-             rm -r common
              
       - name: "kernel source"
         run: |
