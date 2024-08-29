@@ -26,16 +26,9 @@ jobs:
              
       - name: "Clone repo, sync"
         run: |
-             mkdir /home/runner/work/gki_kernel_build/gki_kernel_build/kernel cd /home/runner/work/gki_kernel_build/gki_kernel_build/kernel
+             mkdir kernel && cd kernel
              repo init -u https://android.googlesource.com/kernel/manifest -b common-android12-5.10
              repo sync -j$(nproc --all)
              rm -r common
-             
-      - name: "kernel source"
-        run: |
-             git clone --depth=1 https://github.com/Yaroslav51-dev/android_kernel_xiaomi_liuqin.git -b liuqin-5.10.y /home/runner/work/gki_kernel_build/gki_kernel_build/kernel/common
-             
-      - name: "build"
-        run: |
-             cd /home/runner/work/gki_kernel_build/gki_kernel_build/kernel
+             git clone --depth=1 https://github.com/Yaroslav51-dev/android_kernel_xiaomi_liuqin.git -b liuqin-5.10.y common
              LTO=thin BUILD_CONFIG=common/build.config.msm.liuqin build/build.sh
