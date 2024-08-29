@@ -27,8 +27,8 @@ jobs:
       - name: "Clone repo, sync, and build"
         run: |
              mkdir kernel && cd kernel
-             repo init -u https://android.googlesource.com/kernel/manifest -b common-android12-5.10
+             repo init --no-repo-verify --no-clone-bundle -u https://android.googlesource.com/kernel/manifest -b common-android12-5.10
              repo sync -j$(nproc --all)
              rm -r common
-             git clone --depth=1 https://github.com/Yaroslav51-dev/android_kernel_xiaomi_liuqin.git -b 5.10.224 common
+             git clone --depth=1 https://github.com/Yaroslav51-dev/android_kernel_xiaomi_liuqin.git -b liuqin-5.10.y common
              LTO=thin BUILD_CONFIG=common/build.config.msm.liuqin build/build.sh
