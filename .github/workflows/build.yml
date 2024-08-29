@@ -37,4 +37,5 @@ jobs:
              
       - name: "build"
         run: |
+             cd kernel
              LTO=thin BUILD_CONFIG=common/build.config.msm.liuqin build/build.sh
