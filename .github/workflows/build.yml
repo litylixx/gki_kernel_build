@@ -23,12 +23,27 @@ jobs:
       - name: "Setup build environmentq"
         run: |             
              curl https://raw.githubusercontent.com/akhilnarang/scripts/master/setup/android_build_env.sh | bash -
+      
+      - name: "ccache"
+        run: |
+             sudo mkdir /mnt/ccache
+             sudo mount --bind ~/.cache /mnt/ccache
+             export USE_CCACHE=1
+             export CCACHE_EXEC=/usr/bin/ccache
+             export CCACHE_DIR=/mnt/ccache
+             ccache -M 10G
              
-      - name: "Clone repo, sync, and build"
+      - name: "Clone repo, sync"
         run: |
              mkdir kernel && cd kernel
              repo init --no-repo-verify --no-clone-bundle -u https://android.googlesource.com/kernel/manifest -b common-android12-5.10
              repo sync -j$(nproc --all)
              rm -r common
+             
+      - name: "kernel source"
+        run: |
              git clone --depth=1 https://github.com/Yaroslav51-dev/android_kernel_xiaomi_liuqin.git -b liuqin-5.10.y common
+             
+      - name: "build"
+        run: |
              LTO=thin BUILD_CONFIG=common/build.config.msm.liuqin build/build.sh
