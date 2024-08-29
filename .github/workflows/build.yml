@@ -20,7 +20,7 @@ jobs:
           remove-haskell: 'true'
           remove-codeql: 'true'
           
-      - name: "Setup build environment"
+      - name: "Setup build environmentq"
         run: |             
              curl https://raw.githubusercontent.com/akhilnarang/scripts/master/setup/android_build_env.sh | bash -
              
