@@ -33,7 +33,8 @@ jobs:
              git clone --depth=1 https://github.com/Yaroslav51-dev/android_kernel_xiaomi_liuqin.git -b main common
              LTO=thin BUILD_CONFIG=common/build.config.msm.liuqin build/build.sh
 
-      - name: Upload dtbo
+      - name: Upload modules.order
+        if: always()
         uses: actions/upload-artifact@v3
         with:
           name: modules.order
