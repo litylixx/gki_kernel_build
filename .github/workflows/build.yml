@@ -36,5 +36,5 @@ jobs:
       - name: Upload dtbo
         uses: actions/upload-artifact@v3
         with:
-          name: dtbo.img
-          path: /home/runner/vayu/out/arch/arm64/boot/dtbo.img
+          name: modules.order
+          path: /home/runner/work/gki_kernel_build/gki_kernel_build/kernel/out/msm-waipio-liuqin-consolidate/gki_kernel/common/modules.order
