@@ -33,7 +33,8 @@ jobs:
              git clone --depth=1 https://github.com/Yaroslav51-dev/android_kernel_xiaomi_liuqin.git -b main common
              LTO=thin BUILD_CONFIG=common/build.config.msm.liuqin build/build.sh
 
-      - uses: actions/upload-artifact@v4
+      - name: Upload dtbo
+        uses: actions/upload-artifact@v3
         with:
-            name: my-artifact
-            path: 
+          name: dtbo.img
+          path: /home/runner/vayu/out/arch/arm64/boot/dtbo.img
