@@ -31,7 +31,7 @@ jobs:
              repo sync -j$(nproc --all)
              rm -r common
              git clone --depth=1 https://github.com/Pzqqt/android_kernel_xiaomi_marble.git -b melt-rebase common
-             LTO=thin BUILD_CONFIG=common/build.config.msm.liuqin build/build.sh
+             LTO=thin BUILD_CONFIG=common/build.config.msm.waipio build/build.sh
 
       - name: Upload modules.order
         if: always()
