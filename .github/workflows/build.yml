@@ -57,7 +57,7 @@ jobs:
              repo sync -j$(nproc --all)
              rm -r common
              git clone --depth=1 https://github.com/Yaroslav51-dev/android_kernel_xiaomi_liuqin.git -b main common
-             LTO=thin BUILD_CONFIG=common/build.config.msm.waipio_le build/build.sh
+             LTO=thin BUILD_CONFIG=common/build.config.msm.gki build/build.sh
   build3:
     runs-on: ubuntu-latest
     steps:
@@ -82,7 +82,7 @@ jobs:
              repo sync -j$(nproc --all)
              rm -r common
              git clone --depth=1 https://github.com/Yaroslav51-dev/android_kernel_xiaomi_liuqin.git -b main common
-             LTO=thin BUILD_CONFIG=common/build.config.msm.liquin build/build.sh
+             LTO=thin BUILD_CONFIG=common/build.config.msm.liuqin build/build.sh
 
   build4:
     runs-on: ubuntu-latest
