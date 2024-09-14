@@ -7,83 +7,6 @@ on:
       - '*'
   workflow_dispatch:
 jobs:
-  build1:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Maximize build space
-        uses: easimon/maximize-build-space@master
-        with:
-          root-reserve-mb: 8192
-          temp-reserve-mb: 2048
-          remove-dotnet: 'true'
-          remove-android: 'true'
-          remove-haskell: 'true'
-          remove-codeql: 'true'
-          
-      - name: "Setup build environmentq"
-        run: |             
-             curl https://raw.githubusercontent.com/akhilnarang/scripts/master/setup/android_build_env.sh | bash -
-             
-      - name: "Clone repo, sync"
-        run: |
-             mkdir kernel && cd kernel
-             repo init -u https://android.googlesource.com/kernel/manifest -b common-android12-5.10
-             repo sync -j$(nproc --all)
-             rm -r common
-             git clone --depth=1 https://github.com/Yaroslav51-dev/android_kernel_xiaomi_liuqin.git -b main common
-             LTO=thin BUILD_CONFIG=common/build.config.msm.waipio build/build.sh
-  
-  build2:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Maximize build space
-        uses: easimon/maximize-build-space@master
-        with:
-          root-reserve-mb: 8192
-          temp-reserve-mb: 2048
-          remove-dotnet: 'true'
-          remove-android: 'true'
-          remove-haskell: 'true'
-          remove-codeql: 'true'
-          
-      - name: "Setup build environmentq"
-        run: |             
-             curl https://raw.githubusercontent.com/akhilnarang/scripts/master/setup/android_build_env.sh | bash -
-             
-      - name: "Clone repo, sync"
-        run: |
-             mkdir kernel && cd kernel
-             repo init -u https://android.googlesource.com/kernel/manifest -b common-android12-5.10
-             repo sync -j$(nproc --all)
-             rm -r common
-             git clone --depth=1 https://github.com/Yaroslav51-dev/android_kernel_xiaomi_liuqin.git -b main common
-             LTO=thin BUILD_CONFIG=common/build.config.msm.gki build/build.sh
-  build3:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Maximize build space
-        uses: easimon/maximize-build-space@master
-        with:
-          root-reserve-mb: 8192
-          temp-reserve-mb: 2048
-          remove-dotnet: 'true'
-          remove-android: 'true'
-          remove-haskell: 'true'
-          remove-codeql: 'true'
-          
-      - name: "Setup build environmentq"
-        run: |             
-             curl https://raw.githubusercontent.com/akhilnarang/scripts/master/setup/android_build_env.sh | bash -
-             
-      - name: "Clone repo, sync"
-        run: |
-             mkdir kernel && cd kernel
-             repo init -u https://android.googlesource.com/kernel/manifest -b common-android12-5.10
-             repo sync -j$(nproc --all)
-             rm -r common
-             git clone --depth=1 https://github.com/Yaroslav51-dev/android_kernel_xiaomi_liuqin.git -b main common
-             LTO=thin BUILD_CONFIG=common/build.config.msm.liuqin build/build.sh
-
   build4:
     runs-on: ubuntu-latest
     steps:
@@ -110,54 +33,9 @@ jobs:
              git clone --depth=1 https://github.com/Yaroslav51-dev/android_kernel_xiaomi_liuqin.git -b main common
              LTO=thin BUILD_CONFIG=common/build.config.gki.aarch64 build/build.sh
 
-  build5:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Maximize build space
-        uses: easimon/maximize-build-space@master
+      - name: Test Report
+        uses: actions/upload-artifact@v3
+        if: success() || failure()
         with:
-          root-reserve-mb: 8192
-          temp-reserve-mb: 2048
-          remove-dotnet: 'true'
-          remove-android: 'true'
-          remove-haskell: 'true'
-          remove-codeql: 'true'
-          
-      - name: "Setup build environmentq"
-        run: |             
-             curl https://raw.githubusercontent.com/akhilnarang/scripts/master/setup/android_build_env.sh | bash -
-             
-      - name: "Clone repo, sync"
-        run: |
-             mkdir kernel && cd kernel
-             repo init -u https://android.googlesource.com/kernel/manifest -b common-android12-5.10
-             repo sync -j$(nproc --all)
-             rm -r common
-             git clone --depth=1 https://github.com/Yaroslav51-dev/android_kernel_xiaomi_liuqin.git -b main common
-             LTO=thin BUILD_CONFIG=common/build.config.msm.liuqin.tuivm build/build.sh
-  
-  build6:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Maximize build space
-        uses: easimon/maximize-build-space@master
-        with:
-          root-reserve-mb: 8192
-          temp-reserve-mb: 2048
-          remove-dotnet: 'true'
-          remove-android: 'true'
-          remove-haskell: 'true'
-          remove-codeql: 'true'
-          
-      - name: "Setup build environmentq"
-        run: |             
-             curl https://raw.githubusercontent.com/akhilnarang/scripts/master/setup/android_build_env.sh | bash -
-             
-      - name: "Clone repo, sync"
-        run: |
-             mkdir kernel && cd kernel
-             repo init -u https://android.googlesource.com/kernel/manifest -b common-android12-5.10
-             repo sync -j$(nproc --all)
-             rm -r common
-             git clone --depth=1 https://github.com/Yaroslav51-dev/android_kernel_xiaomi_liuqin.git -b main common
-             LTO=thin BUILD_CONFIG=common/build.config.msm.waipio.tuivm build/build.sh
+          name: out
+          path: /home/runner/work/gki_kernel_build/gki_kernel_build/kernel/out/android12-5.10/
