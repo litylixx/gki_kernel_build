@@ -38,4 +38,4 @@ jobs:
         if: success() || failure()
         with:
           name: out
-          path: /home/runner/work/gki_kernel_build/gki_kernel_build/kernel/out/android12-5.10/
+          path: /home/runner/work/gki_kernel_build/gki_kernel_build/kernel/out/android12-5.10/staging/lib/modules/*/build/arch/arm64/boot/Image
