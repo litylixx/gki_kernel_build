@@ -23,8 +23,8 @@ jobs:
       - name: "Setup build environmentq"
         run: |             
              curl https://raw.githubusercontent.com/akhilnarang/scripts/master/setup/android_build_env.sh | bash -
-             mkdir -p "/home/runner/work/gki_kernel_build/gki_kernel_build/toolchains/neutron-clang"
-             cd "$HOME/toolchains/neutron-clang"
+             mkdir -p "/toolchains/neutron-clang"
+             cd "/toolchains/neutron-clang"
              curl -LO "https://raw.githubusercontent.com/Neutron-Toolchains/antman/main/antman"
              chmod +x antman
              ./antman -S
