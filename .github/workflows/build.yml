@@ -23,7 +23,7 @@ jobs:
       - name: "Setup build environmentq"
         run: |             
              curl https://raw.githubusercontent.com/akhilnarang/scripts/master/setup/android_build_env.sh | bash -
-             mkdir -p "$HOME/toolchains/neutron-clang"
+             mkdir -p "/home/runner/work/gki_kernel_build/gki_kernel_build/toolchains/neutron-clang"
              cd "$HOME/toolchains/neutron-clang"
              curl -LO "https://raw.githubusercontent.com/Neutron-Toolchains/antman/main/antman"
              chmod +x antman
@@ -34,7 +34,7 @@ jobs:
         if: success() || failure()
         with:
           name: out
-          path: $HOME/toolchains/neutron-clang/
+          path: /home/runner/work/gki_kernel_build/gki_kernel_build/toolchains/neutron-clang/
       - name: "Clone repo, sync"
         run: |
              mkdir kernel && cd kernel
