@@ -34,7 +34,7 @@ jobs:
       - name: "Clone repo, sync"
         run: |
              mkdir kernel && cd kernel
-             repo init -u https://android.googlesource.com/kernel/manifest -b common-android12-5.10 --depth=1
+             repo init -u https://android.googlesource.com/kernel/manifest -b common-android12-5.10
              repo sync
              rm -r common
              git clone --depth=1 https://github.com/Yaroslav51-dev/android_kernel_xiaomi_liuqin.git -b main common
