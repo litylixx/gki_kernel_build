@@ -33,6 +33,7 @@ jobs:
 
       - name: "Clone repo, sync"
         run: |
+             export PATH="/toolchains/neutron-clang/bin:$PATH"
              mkdir kernel && cd kernel
              repo init -u https://android.googlesource.com/kernel/manifest -b common-android12-5.10 --depth=1
              repo sync
