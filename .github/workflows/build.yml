@@ -10,9 +10,22 @@ jobs:
   build4:
     runs-on: ubuntu-latest
     steps:
-      - name: Maximize build space
-        uses: easimon/maximize-build-space@master
-        with:
+    - uses: actions/checkout@v1
+    - name: Set up JDK 11
+      uses: actions/setup-java@v1
+      with:
+        java-version: 11
+      # Step that does that actual cache save and restore
+    - uses: actions/cache@v1
+      with:
+        path: ~/.m2/repository
+        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+        restore-keys: |
+          ${{ runner.os }}-maven-
+        
+    - name: Maximize build space
+      uses: easimon/maximize-build-space@master
+      with:
           root-reserve-mb: 8192
           temp-reserve-mb: 2048
           remove-dotnet: 'true'
@@ -20,14 +33,14 @@ jobs:
           remove-haskell: 'true'
           remove-codeql: 'true'
           
-      - name: "Setup build environmentq"
-        run: |             
+    - name: "Setup build environmentq"
+      run: |             
              curl https://raw.githubusercontent.com/akhilnarang/scripts/master/setup/android_build_env.sh | bash -
              mkdir kernel && cd kernel
              git clone https://gitlab.com/crdroidandroid/android_prebuilts_clang_host_linux-x86_clang-r536225.git -b 14.0 clang
 
-      - name: "Clone repo, sync"
-        run: |
+    - name: "Clone repo, sync"
+      run: |
              cd kernel
              repo init -u https://android.googlesource.com/kernel/manifest -b common-android12-5.10 --depth=1
              repo sync
@@ -35,9 +48,9 @@ jobs:
              git clone --depth=1 https://github.com/Yaroslav51-dev/android_kernel_xiaomi_liuqin.git -b main common
              LTO=thin BUILD_CONFIG=common/build.config.gki.aarch64 build/build.sh
 
-      - name: Test Report
-        uses: actions/upload-artifact@v3
-        if: success() || failure()
-        with:
+    - name: Test Report
+      uses: actions/upload-artifact@v3
+      if: success() || failure()
+      with:
           name: out
           path: /home/runner/work/gki_kernel_build/gki_kernel_build/kernel/out/android12-5.10/staging/lib/modules/*/build/arch/arm64/boot/Image
