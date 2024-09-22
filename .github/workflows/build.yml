@@ -40,6 +40,8 @@ jobs:
              git clone https://gitlab.com/crdroidandroid/android_prebuilts_clang_host_linux-x86_clang-r536225.git -b 14.0 clang
 
     - name: "Clone repo, sync"
+      env:
+       MAKEFLAGS: "-j$(nproc)"
       run: |
              cd kernel
              repo init -u https://android.googlesource.com/kernel/manifest -b common-android12-5.10 --depth=1
