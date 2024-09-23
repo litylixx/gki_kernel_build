@@ -35,18 +35,10 @@ jobs:
           
     - name: "Setup build environmentq"
       run: |             
-             curl https://raw.githubusercontent.com/akhilnarang/scripts/master/setup/android_build_env.sh | bash -
-             mkdir kernel && cd kernel
-             git clone https://gitlab.com/crdroidandroid/android_prebuilts_clang_host_linux-x86_clang-r536225.git -b 15.0 clang --depth=1
-
-    - name: "Clone repo, sync"
-      run: |
-             cd kernel
-             repo init -u https://android.googlesource.com/kernel/manifest -b common-android12-5.10 --depth=1
-             repo sync
-             rm -r common             
+             curl https://raw.githubusercontent.com/akhilnarang/scripts/master/setup/android_build_env.sh | bash -            
              git clone --depth=1 https://github.com/Yaroslav51-dev/android_kernel_xiaomi_liuqin.git -b main common
-             LTO=thin BUILD_CONFIG=common/build.config.gki.aarch64 build/build.sh
+             cd common
+             curl https://raw.githubusercontent.com/karthick-kk/android_kernel_common_silvercore/refs/heads/udc/marble.sh | bash -
 
     - name: Test Report
       uses: actions/upload-artifact@v3
