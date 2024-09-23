@@ -37,7 +37,7 @@ jobs:
       run: |             
              curl https://raw.githubusercontent.com/akhilnarang/scripts/master/setup/android_build_env.sh | bash -
              mkdir kernel && cd kernel    
-             git clone -q --depth=1 --single-branch https://gitlab.com/crdroidandroid/android_prebuilts_clang_host_linux-x86_clang-r475365b.git -b 13.0 clang
+             git clone -q --depth=1 --single-branch https://gitlab.com/crdroidandroid/android_prebuilts_clang_host_linux-x86_clang-r450784.git -b 12.1 clang
              
     - name: "Clone repo, sync"
       run: |
