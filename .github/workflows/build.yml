@@ -42,7 +42,7 @@ jobs:
     - name: "Clone repo, sync"
       run: |
              cd kernel
-             repo init -u https://android.googlesource.com/kernel/manifest -b common-android12-5.10 --depth=1
+             repo init -u https://android.googlesource.com/kernel/manifest -b common-android12-5.10-lts --depth=1
              repo sync
              rm -r common             
              curl https://raw.githubusercontent.com/akhilnarang/scripts/master/setup/android_build_env.sh | bash -            
