@@ -47,7 +47,7 @@ jobs:
              rm -r common             
              curl https://raw.githubusercontent.com/akhilnarang/scripts/master/setup/android_build_env.sh | bash -            
              git clone --depth=1 https://github.com/Yaroslav51-dev/android_kernel_xiaomi_liuqin.git -b main common
-             LTO=thin BUILD_CONFIG=common/build.config.gki.aarch64 build/build.sh
+             LTO=thin BUILD_CONFIG=common/siberia.gki.aarch64 build/build.sh
              
     - name: Test Report
       uses: actions/upload-artifact@v3
