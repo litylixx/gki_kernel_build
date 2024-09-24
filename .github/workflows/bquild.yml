@@ -53,7 +53,7 @@ jobs:
              export LLVM=1 LLVM_IAS=1
              export ARCH=arm64
              
-             git clone https://github.com/crdroidandroid/android_prebuilts_clang_host_linux-x86_clang-r487747c $HOME/tc/clang-r487747c
+             git clone https://gitlab.com/crdroidandroid/android_prebuilts_clang_host_linux-x86_clang-r536225.git -b 14.0 $HOME/tc/clang-r487747c
              git clone https://android.googlesource.com/platform/prebuilts/gas/linux-x86 $HOME/tc/gas/linux-x86
              
              make CC="ccache clang" CXX="ccache clang++" LLVM=1 LLVM_IAS=1 O=out gki_defconfig
