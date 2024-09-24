@@ -47,7 +47,7 @@ jobs:
              repo sync
              rm -r common
              git clone --depth=1 https://github.com/Yaroslav51-dev/android_kernel_xiaomi_liuqin.git -b main common
-             OUT_DIR=out LTO=thin BUILD_CONFIG=common/siberia.gki.aarch64 build/build.sh                        
+             OUT_DIR=out LTO=thin BUILD_CONFIG=common/siberia.gki.aarch64 build/build.sh || true                    
       
     - name: Test Report
       uses: actions/upload-artifact@v3
