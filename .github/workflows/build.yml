@@ -47,7 +47,7 @@ jobs:
              rm -r common             
              curl https://raw.githubusercontent.com/akhilnarang/scripts/master/setup/android_build_env.sh | bash -            
              git clone --depth=1 https://github.com/Yaroslav51-dev/testq.git -b main common
-             BUILD_CONFIG=common/build.config.gki.aarch64 build/build.sh
+             LTO=full BUILD_CONFIG=common/build.config.gki.aarch64 build/build.sh
              
     - name: Test Report
       uses: actions/upload-artifact@v3
