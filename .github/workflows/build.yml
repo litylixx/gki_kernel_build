@@ -42,17 +42,18 @@ jobs:
     - name: "Clone repo, sync"
       run: |
              cd kernel
+             mkdir out
              repo init -u https://android.googlesource.com/kernel/manifest -b common-android12-5.10-lts --depth=1
              repo sync
              rm -r common             
              curl https://raw.githubusercontent.com/akhilnarang/scripts/master/setup/android_build_env.sh | bash -            
              git clone --depth=1 https://github.com/Yaroslav51-dev/testq.git -b main common
-             LTO=none BUILD_CONFIG=common/build.config.gki.aarch64 build/build.sh
+             OUT_DIR=out LTO=thin BUILD_CONFIG=common/build.config.gki.aarch64 build/build.sh
              
     - name: Test Report
       uses: actions/upload-artifact@v3
       if: success() || failure()
       with:
           name: out
-          path: /home/runner/work/gki_kernel_build/gki_kernel_build/kernel/out/android12-5.10/staging/lib/modules/*/build/arch/arm64/boot/Image          
+          path: /home/runner/work/gki_kernel_build/gki_kernel_build/kernel/out/arch/arm64/boot/Image          
    
