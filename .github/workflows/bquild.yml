@@ -1,0 +1,68 @@
+name: build-kernel
+on:
+  push:
+    branches: 
+      - main
+    tags:
+      - '*'
+  workflow_dispatch:
+jobs:
+  build4:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Set up JDK 11
+      uses: actions/setup-java@v1
+      with:
+        java-version: 11
+      # Step that does that actual cache save and restore
+    - uses: actions/cache@v1
+      with:
+        path: ~/.m2/repository
+        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+        restore-keys: |
+          ${{ runner.os }}-maven-
+        
+    - name: Maximize build space
+      uses: easimon/maximize-build-space@master
+      with:
+          root-reserve-mb: 8192
+          temp-reserve-mb: 2048
+          remove-dotnet: 'true'
+          remove-android: 'true'
+          remove-haskell: 'true'
+          remove-codeql: 'true'
+          
+    - name: "Setup build environmentq"
+      run: |             
+             curl https://raw.githubusercontent.com/akhilnarang/scripts/master/setup/android_build_env.sh | bash -
+             
+    - name: "Build"
+      run: |
+             mkdir $HOME/kernel
+             cd $HOME/kernel
+             git clone --depth=1 https://github.com/Yaroslav51-dev/testq.git -b main common
+             
+             export CROSS_COMPILE=$PARENT_DIR/tc/clang-r487747c/bin/aarch64-linux-gnu-
+             export CC=$PARENT_DIR/tc/clang-r487747c/bin/clang
+             export PLATFORM_VERSION=14
+             export ANDROID_MAJOR_VERSION=s
+             export PATH=$PARENT_DIR/tc/clang-r487747c/bin:$PATH
+             export PATH=$PARENT_DIR/tc/build-tools/path/linux-x86:$PATH
+             export PATH=$PARENT_DIR/tc/gas/linux-x86:$PATH
+             export LLVM=1 LLVM_IAS=1
+             export ARCH=arm64
+             
+             git clone https://github.com/crdroidandroid/android_prebuilts_clang_host_linux-x86_clang-r487747c $HOME/tc/clang-r487747c
+             git clone https://android.googlesource.com/platform/prebuilts/gas/linux-x86 $HOME/tc/gas/linux-x86
+             
+             make CC="ccache clang" CXX="ccache clang++" LLVM=1 LLVM_IAS=1 O=out gki_defconfig
+             make CC='ccache clang' CXX="ccache clang++" LLVM=1 LLVM_IAS=1 O=out -j$(nproc --all)
+             
+    - name: Test Report
+      uses: actions/upload-artifact@v3
+      if: success() || failure()
+      with:
+          name: out
+          path: /home/runner/work/gki_kernel_build/gki_kernel_build/kernel/out/android12-5.10/staging/lib/modules/*/build/arch/arm64/boot/Image          
+   
