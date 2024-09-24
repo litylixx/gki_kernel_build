@@ -48,16 +48,12 @@ jobs:
              rm -r common             
              curl https://raw.githubusercontent.com/akhilnarang/scripts/master/setup/android_build_env.sh | bash -            
              git clone --depth=1 https://github.com/Yaroslav51-dev/testq.git -b main common
-             OUT_DIR=out LTO=thin BUILD_CONFIG=common/build.config.gki.aarch64 build/build.sh           
-             
-    - name: Test Report
-      run: cd kernel && find . -type f > t.txt
-      if: always()
+             OUT_DIR=out LTO=thin BUILD_CONFIG=common/build.config.gki.aarch64 build/build.sh                        
       
     - name: Test Report
       uses: actions/upload-artifact@v3
       if: success() || failure()
       with:
           name: out
-          path: /home/runner/work/gki_kernel_build/gki_kernel_build/kernel/t.txt        
+          path: /home/runner/work/gki_kernel_build/gki_kernel_build/kernel/out/common/arch/arm64/boot/Image        
    
