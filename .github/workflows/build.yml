@@ -38,7 +38,7 @@ jobs:
              curl https://raw.githubusercontent.com/akhilnarang/scripts/master/setup/android_build_env.sh | bash -
              mkdir kernel && cd kernel
              mkdir out
-             repo init -u https://github.com/GrapheneOS/kernel_manifest-5.10.git -b 15 default.xml --depth=1
+             repo init -u https://github.com/GrapheneOS/kernel_manifest-5.10.git -b 15 -m default.xml
              repo sync
              find . -type f > t.txt
              git clone -q --depth=1 --single-branch https://gitlab.com/crdroidandroid/android_prebuilts_clang_host_linux-x86_clang-r510928.git -b 14.0 clang
