@@ -41,6 +41,7 @@ jobs:
              
     - name: "Clone repo, sync"
       run: |
+             nproc
              cd kernel
              mkdir out
              repo init -u https://android.googlesource.com/kernel/manifest -b common-android12-5.10 --depth=1
