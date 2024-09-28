@@ -40,7 +40,7 @@ jobs:
              mkdir out
              git clone --depth=1 --jobs 4 --single-branch https://android.googlesource.com/kernel/build -b android-15.0.0_r0.10 build
              git clone --depth=1 --jobs 4 --single-branch https://android.googlesource.com/platform/prebuilts/gas/linux-x86 prebuilts/gas/linux-x86
-             git clone --depth=1 --jobs 4 --single-branch https://android.googlesource.com/platform/prebuilts/build-tools build/build-tools
+             git clone --depth=1 --jobs 4 --single-branch https://android.googlesource.com/platform/prebuilts/build-tools build-tools
              git clone --depth=1 --jobs 4 --single-branch https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86 clang
              git clone --depth=1 --jobs 4 --single-branch https://github.com/Yaroslav51-dev/android_kernel_xiaomi_liuqin.git -b main common
              git clone --depth=1 --jobs 4 --single-branch https://gitlab.com/crdroidandroid/android-prebuilts-clang-host-linux-x-86-prelude-clang.git -b 13.0 gcc             
