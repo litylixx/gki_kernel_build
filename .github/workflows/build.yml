@@ -38,10 +38,10 @@ jobs:
              curl https://raw.githubusercontent.com/akhilnarang/scripts/master/setup/android_build_env.sh | bash -
              mkdir kernel && cd kernel
              mkdir out
-             git clone --depth=1 --jobs 4 https://android.googlesource.com/platform/prebuilts/gas/linux-x86 prebuilts/gas/linux-x86
-             git clone --depth=1 --jobs 4 https://android.googlesource.com/platform/prebuilts/build-tools build/build-tools
-             git clone --depth=1 --jobs 4 https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86 clang
-             git clone --depth=1 --jobs 4 https://github.com/Yaroslav51-dev/android_kernel_xiaomi_liuqin.git -b main common
+             git clone --depth=1 --jobs 4 --single-branch https://android.googlesource.com/platform/prebuilts/gas/linux-x86 prebuilts/gas/linux-x86
+             git clone --depth=1 --jobs 4 --single-branch https://android.googlesource.com/platform/prebuilts/build-tools build/build-tools
+             git clone --depth=1 --jobs 4 --single-branch https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86 clang
+             git clone --depth=1 --jobs 4 --single-branch https://github.com/Yaroslav51-dev/android_kernel_xiaomi_liuqin.git -b main common
              
     - name: "build"
       run: |
