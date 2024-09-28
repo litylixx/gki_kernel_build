@@ -37,27 +37,18 @@ jobs:
       run: |             
              curl https://raw.githubusercontent.com/akhilnarang/scripts/master/setup/android_build_env.sh | bash -
              mkdir kernel && cd kernel    
-             git clone -q --depth=1 --single-branch https://gitlab.com/crdroidandroid/android_prebuilts_clang_host_linux-x86_clang-r536225.git -b 14.0 clang
+             git clone -q --depth=1 --single-branch https://gitlab.com/crdroidandroid/android_prebuilts_clang_host_linux-x86_clang-r510928.git -b 14.0 clang
              
     - name: "Clone repo, sync"
-      run: |
-             nproc
+      run: |             
              cd kernel
              mkdir out
              repo init -u https://android.googlesource.com/kernel/manifest -b common-android12-5.10 --depth=1
              repo sync
              rm -r common
              git clone --depth=1 https://github.com/Yaroslav51-dev/android_kernel_xiaomi_liuqin.git -b main common
-             OUT_DIR=out LTO=thin BUILD_CONFIG=common/siberia.gki.aarch64 build/build.sh
-             find . -type f > t.txt
+             OUT_DIR=out CC="ccache clang" LTO=thin BUILD_CONFIG=common/siberia.gki.aarch64 build/build.sh
       
-    - name: Test Report
-      uses: actions/upload-artifact@v3
-      if: success() || failure()
-      with:
-          name: out
-          path: /home/runner/work/gki_kernel_build/gki_kernel_build/kernel/out/android12-5.10/staging/lib/modules/*/build/arch/arm64/boot/Image
-          
     - name: Test Report
       uses: actions/upload-artifact@v3
       if: success() || failure()
