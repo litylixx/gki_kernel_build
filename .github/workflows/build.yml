@@ -36,12 +36,7 @@ jobs:
     - name: "Setup build environment"
       run: |             
              curl https://raw.githubusercontent.com/akhilnarang/scripts/master/setup/android_build_env.sh | bash -
-             mkdir kernel
-             cd kernel
-             mkdir out
-             repo init -u https://github.com/Yaroslav51-dev/manifest -b main --depth=1
-             repo sync
-          
+             
     - name: "Clone repo, sync"
       run: |
              mkdir kernel
@@ -56,4 +51,4 @@ jobs:
       if: success() || failure()
       with:
           name: out1
-          path: /home/runner/work/gki_kernel_build/gki_kernel_build/kernel/build
+          path: /home/runner/work/gki_kernel_build/gki_kernel_build/kernel/out/dist/Image
