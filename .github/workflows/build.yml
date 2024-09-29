@@ -36,20 +36,27 @@ jobs:
     - name: "Setup build environmentq"
       run: |             
              curl https://raw.githubusercontent.com/akhilnarang/scripts/master/setup/android_build_env.sh | bash -
-             mkdir kernel && cd kernel
-             mkdir out
+             git clone --depth=1 --jobs 4 --single-branch https://github.com/Yaroslav51-dev/android_kernel_xiaomi_liuqin.git -b main $HOME/common
+             cd $HOME/common
              git clone --depth=1 --jobs 4 --single-branch https://android.googlesource.com/kernel/build -b android-15.0.0_r0.10 build
-             git clone --depth=1 --jobs 4 --single-branch https://android.googlesource.com/platform/prebuilts/gas/linux-x86 prebuilts/gas/linux-x86
+             git clone --depth=1 --jobs 4 --single-branch https://android.googlesource.com/platform/prebuilts/gas/linux-x86 gas
              git clone --depth=1 --jobs 4 --single-branch https://android.googlesource.com/platform/prebuilts/build-tools build-tools
-             git clone --depth=1 --jobs 4 --single-branch https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86 clang
-             git clone --depth=1 --jobs 4 --single-branch https://github.com/Yaroslav51-dev/android_kernel_xiaomi_liuqin.git -b main common
              git clone --depth=1 --jobs 4 --single-branch https://gitlab.com/crdroidandroid/android-prebuilts-clang-host-linux-x-86-prelude-clang.git -b 13.0 gcc             
              
     - name: "build"
       run: |
-             cd kernel
-             OUT_DIR=out CC="ccache clang" LTO=thin BUILD_CONFIG=common/siberia.gki.aarch64 build/build.sh
-      
+             export PATH=$HOME/common/gcc/bin:$PATH
+             export PATH=$HOME/common/build-tools/path/linux-x86:$PATH
+             export PATH=$HOME/common/gas/linux-x86:$PATH
+             cd $HOME/common
+             export TARGET_SOC=s5e9925
+             export LLVM=1 LLVM_IAS=1
+             export ARCH=arm64
+             export PLATFORM_VERSION=14
+             export ANDROID_MAJOR_VERSION=s
+             make -j$(nproc) -C 0=out ARCH=arm64 gki_defconfig
+             make -j$(nproc) -C 0=out LLVM=1 LLVM_IAS=1 ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- CC=clang
+                            
     - name: Test Report
       uses: actions/upload-artifact@v3
       if: success() || failure()
