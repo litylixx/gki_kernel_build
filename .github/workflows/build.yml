@@ -49,14 +49,13 @@ jobs:
              export PATH=$HOME/common/build-tools/path/linux-x86:$PATH
              export PATH=$HOME/common/gas/linux-x86:$PATH
              cd $HOME/common
-             mkdir out
              export TARGET_SOC=s5e9925
              export LLVM=1 LLVM_IAS=1
              export ARCH=arm64
              export PLATFORM_VERSION=14
              export ANDROID_MAJOR_VERSION=s
-             make -j$(nproc) -C 0=out ARCH=arm64 gki_defconfig
-             make -j$(nproc) -C 0=out LLVM=1 LLVM_IAS=1 ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- CC=clang
+             make -j$(nproc) -C ARCH=arm64 gki_defconfig
+             make -j$(nproc) -C LLVM=1 LLVM_IAS=1 ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- CC=clang
                             
     - name: Test Report
       uses: actions/upload-artifact@v3
