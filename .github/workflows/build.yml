@@ -49,6 +49,7 @@ jobs:
              export PATH=$HOME/common/build-tools/path/linux-x86:$PATH
              export PATH=$HOME/common/gas/linux-x86:$PATH
              cd $HOME/common
+             mkdir out
              export TARGET_SOC=s5e9925
              export LLVM=1 LLVM_IAS=1
              export ARCH=arm64
