@@ -36,10 +36,10 @@ jobs:
     - name: "Setup build environment"
       run: |             
              curl https://raw.githubusercontent.com/akhilnarang/scripts/master/setup/android_build_env.sh | bash -
-             sudo mkdir /mnt/ccache
+             sudo mkdir /home/runner/work/gki_kernel_build/gki_kernel_build/ccache
              export USE_CCACHE=1
              export CCACHE_EXEC=/usr/bin/ccache 
-             export CCACHE_DIR=/mnt/ccache
+             export CCACHE_DIR=/home/runner/work/gki_kernel_build/gki_kernel_build/ccache
              ccache -M 10G
              
     - name: "Clone repo, sync"
