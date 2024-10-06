@@ -36,22 +36,7 @@ jobs:
     - name: "Setup build environment"
       run: |             
              curl https://raw.githubusercontent.com/akhilnarang/scripts/master/setup/android_build_env.sh | bash -
-             sudo mkdir /home/runner/work/gki_kernel_build/gki_kernel_build/ccache
-  
-    - name: ccache
-      uses: hendrikmuhs/ccache-action@v1.2.11
-      with:
-          key: ${{ matrix.os }}-${{ matrix.type }}
-  
-    - name: build with cmake
-      uses: lukka/run-cmake@v3
-      with:
-          cmakeListsOrSettingsJson: CMakeListsTxtAdvanced
-          cmakeListsTxtPath: '${{ github.workspace }}/CMakeLists.txt'
-          cmakeAppendedArgs: '-DCMAKE_BUILD_TYPE=${{ matrix.type }} -D CMAKE_C_COMPILER_LAUNCHER=ccache -D CMAKE_CXX_COMPILER_LAUNCHER=ccache'
-          buildWithCMake: true
-          buildDirectory: '${{ github.workspace }}/build'
-  
+
     - name: "Clone repo, sync"
       run: |
              mkdir kernel
