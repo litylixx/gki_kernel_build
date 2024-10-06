@@ -37,7 +37,6 @@ jobs:
       run: |             
              curl https://raw.githubusercontent.com/akhilnarang/scripts/master/setup/android_build_env.sh | bash -
              sudo mkdir /mnt/ccache
-             sudo mount --bind ~/.cache /mnt/ccache
              export USE_CCACHE=1
              export CCACHE_EXEC=/usr/bin/ccache 
              export CCACHE_DIR=/mnt/ccache
