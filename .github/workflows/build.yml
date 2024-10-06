@@ -42,7 +42,6 @@ jobs:
              mkdir kernel
              cd kernel
              mkdir out
-             git clone --depth=1 https://gitlab.com/crdroidandroid/android_prebuilts_clang_host_linux-x86_clang-r536225.git -b 14.0 clang
              repo init -u https://github.com/Yaroslav51-dev/manifest -b main --depth=1
              repo sync
              OUT_DIR=out LTO=thin BUILD_CONFIG=common/build.config.gki.aarch64 build/build.sh
