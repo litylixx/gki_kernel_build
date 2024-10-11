@@ -42,7 +42,7 @@ jobs:
              mkdir kernel
              cd kernel
              mkdir out
-             repo init -u https://github.com/pa-gr/kernel_manifest.git -b android12-5.10-marble --depth=1
+             repo init -u https://github.com/Yaroslav51-dev/manifest.git -b main --depth=1
              repo sync
              OUT_DIR=out LTO=thin BUILD_CONFIG=common/build.config.gki.aarch64 build/build.sh
 
