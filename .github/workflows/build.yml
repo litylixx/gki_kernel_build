@@ -44,7 +44,7 @@ jobs:
              mkdir out
              repo init -u https://github.com/Yaroslav51-dev/manifest.git -b main --depth=1
              repo sync
-             OUT_DIR=out LTO=thin BUILD_CONFIG=common/build.config.gki.aarch64 build/build.sh
+             OUT_DIR=out LTO=thin KCFLAGS=-O3 BUILD_CONFIG=common/build.config.gki.aarch64 build/build.sh
 
     - name: Test Report
       uses: actions/upload-artifact@v3
