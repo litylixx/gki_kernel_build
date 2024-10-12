@@ -42,6 +42,8 @@ jobs:
              mkdir out
              repo init -u https://github.com/Yaroslav51-dev/manifest.git -b main --depth=1
              repo sync
+             rm -r common
+             git clone https://github.com/kerneltoast/android_kernel_google_gs201.git 14.0.0-sultan common --depth=1
 
     - name: "Build"
       run: |             
