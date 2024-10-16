@@ -45,7 +45,7 @@ jobs:
 
     - name: "Build"
       run: |             
-             OUT_DIR=out LTO=thin KCFLAGS=-O3 BUILD_CONFIG=common/build.config.msm.liuqin build/build.sh
+             OUT_DIR=out LTO=thin KCFLAGS=-O3 BUILD_CONFIG=common/siberia.gki.aarch64 build/build.sh
 
     - name: Test Report
       uses: actions/upload-artifact@v3
