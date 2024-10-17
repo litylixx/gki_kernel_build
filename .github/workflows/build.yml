@@ -41,7 +41,7 @@ jobs:
       run: |
              mkdir out
              repo init -u https://github.com/Yaroslav51-dev/manifest.git -b main --depth=1
-             repo sync
+             repo sync -c --no-tags --no-clone-bundle
 
     - name: "Build"
       run: |             
