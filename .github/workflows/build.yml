@@ -40,7 +40,7 @@ jobs:
     - name: "Clone repo, sync"
       run: |
              mkdir out
-             repo init -u https://github.com/Yaroslav51-dev/manifest.git -b main --depth=1
+             repo init -u https://github.com/Yaroslav51-dev/kernel_manifest.git -b android12-5.10 --depth=1
              repo sync -c --no-tags --no-clone-bundle
 
     - name: "Build"
