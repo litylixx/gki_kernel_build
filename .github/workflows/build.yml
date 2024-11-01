@@ -41,11 +41,11 @@ jobs:
       run: |
              mkdir out
              repo init -u https://github.com/Yaroslav51-dev/manifest.git -b main --depth=1
-             repo sync -c --no-tags --no-clone-bundle
+             repo sync -c --no-tags --no-clone-bundle -j16
 
     - name: "Build"
       run: |             
-             OUT_DIR=out LTO=thin BUILD_CONFIG=common/siberia.gki.aarch64 build/build.sh
+             OUT_DIR=out LTO=thin BUILD_CONFIG=common/siberia.gki.aarch64 build/build.sh -j16
              find . -type f > t.txt
 
     - name: Test Report
