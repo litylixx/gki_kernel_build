@@ -1,11 +1,17 @@
-name: My build action requiring more space
-on: push
-
+name: learn-github-actions
+on: [push]
 jobs:
-  build:
-    name: Build my artifact
-    runs-on: ubuntu-latest
+  check-bats-version:
+    runs-on:
+      group: ubuntu-runners
+      labels: ubuntu-20.04-16core
     steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '14'
+      - run: npm install -g bats
+      - run: bats -v
       - name: Maximize build space
         uses: Yaroslav51-dev/maximize-build-space@master
         with:
@@ -19,3 +25,4 @@ jobs:
         run: |
           echo "Free space:"
           df -h
+          nproc
