@@ -1,4 +1,4 @@
-name: My build action requiring more spaceq
+name: My build action requiring more space
 on: push
 
 jobs:
