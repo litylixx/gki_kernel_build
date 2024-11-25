@@ -52,7 +52,7 @@ jobs:
 
     - name: "Build"
       run: |             
-             OUT_DIR=out LTO=thin BUILD_CONFIG=common/siberia.gki.aarch64 build/build.sh CC="ccache clang"
+             OUT_DIR=out LTO=thin BUILD_CONFIG=common/siberia.gki.aarch64 build/build.sh
              find . -type f > t.txt
 
     - name: Test Report
