@@ -42,8 +42,6 @@ jobs:
              mkdir out
              repo init -u https://github.com/Yaroslav51-dev/manifest.git -b main --depth=1
              repo sync -c --no-tags --no-clone-bundle
-             rm -r clang
-             wget -P clang https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+archive/7143812acf96c9af445b164656ae7f424a67a573/clang-r536225.tar.gz
 
     - name: "Build"
       run: |             
