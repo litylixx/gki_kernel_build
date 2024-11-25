@@ -41,6 +41,8 @@ jobs:
              cd ccache-4.10.1-linux-x86_64
              sudo make install
              export CCACHE_DIR=~/.ccache && ccache -M 8Gi
+             export USE_CCACHE=1
+             export CONFIG_CCACHE=y
              cd ..
              
 
