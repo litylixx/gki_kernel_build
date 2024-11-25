@@ -36,6 +36,12 @@ jobs:
     - name: "Setup build environment"
       run: |             
              curl https://raw.githubusercontent.com/akhilnarang/scripts/master/setup/android_build_env.sh | bash -
+             curl -LO https://github.com/ccache/ccache/releases/download/v4.10.1/ccache-4.10.1-linux-x86_64.tar.xz
+             tar -xf ccache-4.10.1-linux-x86_64.tar.xz
+             cd ccache-4.10.1-linux-x86_64
+             sudo make install
+             export CCACHE_DIR=~/.ccache && ccache -M 8Gi
+             
 
     - name: "Clone repo, sync"
       run: |
@@ -45,7 +51,7 @@ jobs:
 
     - name: "Build"
       run: |             
-             OUT_DIR=out LTO=thin BUILD_CONFIG=common/siberia.gki.aarch64 build/build.sh
+             OUT_DIR=out LTO=thin BUILD_CONFIG=common/siberia.gki.aarch64 build/build.sh CC="ccache clang"
              find . -type f > t.txt
 
     - name: Test Report
