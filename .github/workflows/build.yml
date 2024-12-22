@@ -49,12 +49,12 @@ jobs:
     - name: "Clone repo, sync"
       run: |
              mkdir out
-             repo init -u https://github.com/Yaroslav51-dev/manifest.git -b 4.14 --depth=1
+             repo init -u https://github.com/Yaroslav51-dev/manifest.git -b main --depth=1
              repo sync -c --no-tags --no-clone-bundle
 
     - name: "Build"
       run: |             
-             OUT_DIR=out LTO=thin BUILD_CONFIG=common/build.config.vayu.common build/build.sh
+             OUT_DIR=out LTO=thin BUILD_CONFIG=common/siberia.gki.aarch64 build/build.sh
              find . -type f > t.txt
 
     - name: Test Report
