@@ -54,7 +54,7 @@ jobs:
 
     - name: "Build"
       run: |             
-             OUT_DIR=out BUILD_CONFIG=common/siberia.gki.aarch64 build/build_abi.sh --update --print-report
+             OUT_DIR=out LTO=thin BUILD_CONFIG=common/siberia.gki.aarch64 build/build_abi.sh --update --print-report
              find . -type f > t.txt
 
     - name: Test Report
