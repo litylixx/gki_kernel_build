@@ -61,19 +61,19 @@ jobs:
       uses: actions/upload-artifact@v4
       if: success() || failure()
       with:
-          name: out1
+          name: image
           path: /home/runner/work/gki_kernel_build/gki_kernel_build/out/dist/Image
           
     - name: Test Report
       uses: actions/upload-artifact@v4
       if: success() || failure()
       with:
-          name: out1
+          name: modules
           path: /home/runner/work/gki_kernel_build/gki_kernel_build/out/dist/*.ko    
 
     - name: Test Report
       uses: actions/upload-artifact@v4
       if: success() || failure()
       with:
-          name: out1
+          name: log
           path: /home/runner/work/gki_kernel_build/gki_kernel_build/t.txt
