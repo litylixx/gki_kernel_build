@@ -1,0 +1,79 @@
+name: update-abi
+on:
+  push:
+    branches: 
+      - main
+    tags:
+      - '*'
+  workflow_dispatch:
+jobs:
+  build4:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Set up JDK 11
+      uses: actions/setup-java@v1
+      with:
+        java-version: 11
+      # Step that does that actual cache save and restore
+    - uses: actions/cache@v1
+      with:
+        path: ~/.m2/repository
+        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+        restore-keys: |
+          ${{ runner.os }}-maven-
+        
+    - name: Maximize build space
+      uses: easimon/maximize-build-space@master
+      with:
+          root-reserve-mb: 8192
+          temp-reserve-mb: 2048
+          remove-dotnet: 'true'
+          remove-android: 'true'
+          remove-haskell: 'true'
+          remove-codeql: 'true'
+
+    - name: "Setup build environment"
+      run: |             
+             curl https://raw.githubusercontent.com/akhilnarang/scripts/master/setup/android_build_env.sh | bash -
+             curl -LO https://github.com/ccache/ccache/releases/download/v4.10.1/ccache-4.10.1-linux-x86_64.tar.xz
+             tar -xf ccache-4.10.1-linux-x86_64.tar.xz
+             cd ccache-4.10.1-linux-x86_64
+             sudo make install
+             export CCACHE_DIR=~/.ccache && ccache -M 8Gi
+             export USE_CCACHE=1
+             export CONFIG_CCACHE=y
+             cd ..
+             
+
+    - name: "Clone repo, sync"
+      run: |
+             mkdir out
+             repo init -u https://github.com/Yaroslav51-dev/manifest.git -b main --depth=1
+             repo sync -c --no-tags --no-clone-bundle
+
+    - name: "Build"
+      run: |             
+             OUT_DIR=out LTO=thin BUILD_CONFIG=common/siberia.gki.aarch64 build/build_abi.sh --update-symbol-list
+             find . -type f > t.txt
+
+    - name: Test Report
+      uses: actions/upload-artifact@v4
+      if: success() || failure()
+      with:
+          name: out1
+          path: /home/runner/work/gki_kernel_build/gki_kernel_build/out/dist/Image
+          
+    - name: Test Report
+      uses: actions/upload-artifact@v4
+      if: success() || failure()
+      with:
+          name: out1
+          path: /home/runner/work/gki_kernel_build/gki_kernel_build/out/dist/*.ko    
+
+    - name: Test Report
+      uses: actions/upload-artifact@v4
+      if: success() || failure()
+      with:
+          name: out1
+          path: /home/runner/work/gki_kernel_build/gki_kernel_build/t.txt
