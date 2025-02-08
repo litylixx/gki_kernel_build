@@ -47,7 +47,7 @@ jobs:
     - name: "Clone repo, sync"
       run: |
              mkdir out
-             repo init -u https://github.com/Yaroslav51-dev/manifest.git -b main --depth=1
+             repo init -u https://github.com/litylixx/manifest.git -b main --depth=1
              repo sync -c --no-tags --no-clone-bundle
 
     - name: "Build"
